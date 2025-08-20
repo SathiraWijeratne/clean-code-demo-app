@@ -2,7 +2,9 @@ using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Application.Dtos;
-
+/// <summary>
+/// Data transfer object for user information.
+/// </summary>
 public class UserDto
 {
     public int Id { get; set; }

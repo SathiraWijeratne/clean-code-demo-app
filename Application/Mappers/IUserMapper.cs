@@ -7,6 +7,9 @@ using Domain.Entities;
 
 namespace Application.Mappers
 {
+    /// <summary>
+    /// User mapper interface for mapping between user entities and DTOs.
+    /// </summary>
     public interface IUserMapper
     {
         UserDto MapToDto(User user);
