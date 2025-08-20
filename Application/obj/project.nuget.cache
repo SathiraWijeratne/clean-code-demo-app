@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "mxZVe3Q5fXM=",
+  "dgSpecHash": "riZKNf7MvcA=",
   "success": true,
   "projectFilePath": "C:\\Users\\sathi\\Documents\\Projects\\clean-code-demo-app\\Application\\Application.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\sathi\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\9.0.8\\microsoft.extensions.dependencyinjection.9.0.8.nupkg.sha512",
+    "C:\\Users\\sathi\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\9.0.8\\microsoft.extensions.dependencyinjection.abstractions.9.0.8.nupkg.sha512"
+  ],
   "logs": []
 }
