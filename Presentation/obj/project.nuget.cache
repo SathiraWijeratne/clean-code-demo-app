@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "YGO/ikuuI+Y=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sathi\\Documents\\Projects\\clean-code-demo-app\\Presentation\\Presentation.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sathi\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.8\\microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",
+    "C:\\Users\\sathi\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
