@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application.DependencyInjection;
@@ -15,7 +16,9 @@ public static class ServiceContainer
     /// <returns>The updated IServiceCollection.</returns>
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        // Register your application services here
+        // Register MediatR
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())); // automatically registers all MediatR handlers
+
         return services;
     }
 }
