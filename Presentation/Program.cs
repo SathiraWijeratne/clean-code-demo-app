@@ -9,8 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+// Get connection string from configuration
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+    ?? "Data Source=users.db";
+
 // add infrastructure services (includes both application services and MediatR)
-builder.Services.AddInfrastructureServices();
+builder.Services.AddInfrastructureServices(connectionString);
 
 var app = builder.Build();
 
