@@ -1,4 +1,5 @@
 using System;
+using Application.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.DependencyInjection;
@@ -15,6 +16,9 @@ public static class ServiceContainer
     /// <returns>The updated IServiceCollection.</returns>
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
     {
+        // Register application services
+        services.AddApplicationServices();
+
         // Register your infrastructure services here
         return services;
     }
