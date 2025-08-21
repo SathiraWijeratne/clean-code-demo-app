@@ -1,9 +1,10 @@
 using System;
 using System.Data;
 using Domain.Entities;
+using Domain.Repositories;
 using Microsoft.Data.Sqlite;
 
-namespace Domain.Repositories;
+namespace Infrastructure.Repositories;
 
 public class UserRepository : IUserRepository
 {
@@ -111,9 +112,26 @@ public class UserRepository : IUserRepository
         return users;
     }
 
-    public Task<User?> GetUserByIdAsync(int id)
+    public async Task<User?> GetUserByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        using var connection = new SqliteConnection(_connectionString);
+        await connection.OpenAsync();
+
+        using var command = connection.CreateCommand();
+        command.CommandText = "SELECT Id, Name FROM Users WHERE Id = @id";
+        command.Parameters.AddWithValue("@id", id);
+
+        using var reader = await command.ExecuteReaderAsync();
+        if (await reader.ReadAsync())
+        {
+            return new User
+            {
+                Id = reader.GetInt32("Id"),
+                Name = reader.GetString("Name")
+            };
+        }
+
+        return null;
     }
 
     public async Task UpdateUserAsync(User user)
