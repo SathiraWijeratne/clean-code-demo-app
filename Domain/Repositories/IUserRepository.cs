@@ -2,7 +2,9 @@ using System;
 using Domain.Entities;
 
 namespace Domain.Repositories;
-
+/// <summary>
+/// User repository interface for managing user data.
+/// </summary>
 public interface IUserRepository
 {
     Task<IEnumerable<User>> GetAllUsersAsync();
