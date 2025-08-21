@@ -1,6 +1,7 @@
 using System;
 using Application.DependencyInjection;
 using Domain.Repositories;
+using Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.DependencyInjection;
