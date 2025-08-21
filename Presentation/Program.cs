@@ -1,8 +1,16 @@
+using Application.Commands;
+using Application.Queries;
+using Infrastructure.DependencyInjection;
+using MediatR;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// add infrastructure services (includes both application services and MediatR)
+builder.Services.AddInfrastructureServices();
 
 var app = builder.Build();
 
@@ -21,7 +29,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
+    var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
@@ -32,6 +40,36 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+// User endpoints using MediatR
+app.MapGet("/users", async (IMediator mediator) =>
+{
+    return await mediator.Send(new GetAllUsersQuery());
+});
+
+app.MapGet("/users/{id:int}", async (int id, IMediator mediator) =>
+{
+    return await mediator.Send(new GetUserByIdQuery { Id = id });
+});
+
+app.MapPost("/users", async (CreateUserCommand command, IMediator mediator) =>
+{
+    await mediator.Send(command);
+    return Results.Created();
+});
+
+app.MapPut("/users/{id:int}", async (int id, UpdateUserCommand command, IMediator mediator) =>
+{
+    command.Id = id;
+    await mediator.Send(command);
+    return Results.NoContent();
+});
+
+app.MapDelete("/users/{id:int}", async (int id, IMediator mediator) =>
+{
+    await mediator.Send(new DeleteUserCommand { Id = id });
+    return Results.NoContent();
+});
 
 app.Run();
 
