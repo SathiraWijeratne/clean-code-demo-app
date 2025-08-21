@@ -37,3 +37,11 @@ C:\Users\sathi\Documents\Projects\clean-code-demo-app\Presentation\obj\Debug\net
 C:\Users\sathi\Documents\Projects\clean-code-demo-app\Presentation\obj\Debug\net9.0\Presentation.pdb
 C:\Users\sathi\Documents\Projects\clean-code-demo-app\Presentation\obj\Debug\net9.0\Presentation.genruntimeconfig.cache
 C:\Users\sathi\Documents\Projects\clean-code-demo-app\Presentation\obj\Debug\net9.0\ref\Presentation.dll
+C:\Users\sathi\Documents\Projects\clean-code-demo-app\Presentation\bin\Debug\net9.0\MediatR.dll
+C:\Users\sathi\Documents\Projects\clean-code-demo-app\Presentation\bin\Debug\net9.0\MediatR.Contracts.dll
+C:\Users\sathi\Documents\Projects\clean-code-demo-app\Presentation\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\sathi\Documents\Projects\clean-code-demo-app\Presentation\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\sathi\Documents\Projects\clean-code-demo-app\Presentation\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\sathi\Documents\Projects\clean-code-demo-app\Presentation\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\sathi\Documents\Projects\clean-code-demo-app\Presentation\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\sathi\Documents\Projects\clean-code-demo-app\Presentation\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
