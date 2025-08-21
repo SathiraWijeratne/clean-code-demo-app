@@ -1,5 +1,6 @@
 using System;
 using Application.DependencyInjection;
+using Domain.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.DependencyInjection;
@@ -14,10 +15,15 @@ public static class ServiceContainer
     /// </summary>
     /// <param name="services">The IServiceCollection to add services to.</param>
     /// <returns>The updated IServiceCollection.</returns>
-    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, string? connectionString = null)
     {
         // Register application services
         services.AddApplicationServices();
+
+        var dbConnectionString = connectionString ?? "Data Source=users.db";
+
+        // Register repository with connection string
+        services.AddScoped<IUserRepository>(provider => new UserRepository(dbConnectionString));
 
         // Register your infrastructure services here
         return services;
