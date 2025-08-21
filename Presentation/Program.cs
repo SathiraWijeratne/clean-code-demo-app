@@ -1,19 +1,16 @@
-using Application.Commands;
-using Application.Queries;
 using Infrastructure.DependencyInjection;
-using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 // Get connection string from configuration
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
     ?? "Data Source=users.db";
 
-// add infrastructure services (includes both application services and MediatR)
+// Add infrastructure services (includes both application services and MediatR)
 builder.Services.AddInfrastructureServices(connectionString);
 
 var app = builder.Build();
@@ -22,62 +19,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+// Map controllers
+app.MapControllers();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-
-// User endpoints using MediatR
-app.MapGet("/users", async (IMediator mediator) =>
-{
-    return await mediator.Send(new GetAllUsersQuery());
-});
-
-app.MapGet("/users/{id:int}", async (int id, IMediator mediator) =>
-{
-    return await mediator.Send(new GetUserByIdQuery { Id = id });
-});
-
-app.MapPost("/users", async (CreateUserCommand command, IMediator mediator) =>
-{
-    await mediator.Send(command);
-    return Results.Created();
-});
-
-app.MapPut("/users/{id:int}", async (int id, UpdateUserCommand command, IMediator mediator) =>
-{
-    command.Id = id;
-    await mediator.Send(command);
-    return Results.NoContent();
-});
-
-app.MapDelete("/users/{id:int}", async (int id, IMediator mediator) =>
-{
-    await mediator.Send(new DeleteUserCommand { Id = id });
-    return Results.NoContent();
-});
-
-app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+await app.RunAsync();
