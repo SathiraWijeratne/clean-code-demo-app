@@ -22,16 +22,13 @@ public class DeleteUserCommandHandlerTests
 
     [Fact]
     public async Task Handle_ValidCommand_ShouldCallDeleteUserAsync()
-    {
-        // Arrange
+    {       
         var command = new DeleteUserCommand { Id = 1 };
         _mockUserRepository.Setup(x => x.DeleteUserAsync(It.IsAny<int>()))
             .Returns(Task.CompletedTask);
-
-        // Act
+    
         await _handler.Handle(command, CancellationToken.None);
-
-        // Assert
+    
         _mockUserRepository.Verify(x => x.DeleteUserAsync(1), Times.Once);
     }
 }
