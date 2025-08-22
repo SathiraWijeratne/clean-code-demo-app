@@ -15,6 +15,12 @@ public class UpdateUserCommandHandlerTests
     private readonly Mock<IUserRepository> _mockUserRepository;
     private readonly UpdateUserCommandHandler _handler;
 
+    public UpdateUserCommandHandlerTests()
+    {
+        _mockUserRepository = new Mock<IUserRepository>();
+        _handler = new UpdateUserCommandHandler(_mockUserRepository.Object);
+    }
+
     [Fact]
     public async Task Handle_ValidCommand_ShouldCallUpdateUserAsync()
     {
