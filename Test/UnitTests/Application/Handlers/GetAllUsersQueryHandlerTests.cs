@@ -23,8 +23,7 @@ public class GetAllUsersQueryHandlerTests
 
     [Fact]
     public async Task Handle_WhenUsersExist_ShouldReturnUserDtos()
-    {
-        // Arrange
+    {     
         var users = new List<User>
         {
             new User { Id = 1, Name = "John Doe" },
@@ -35,11 +34,9 @@ public class GetAllUsersQueryHandlerTests
                           .ReturnsAsync(users);
 
         var query = new GetAllUsersQuery();
-
-        // Act
+     
         var result = await _handler.Handle(query, CancellationToken.None);
-
-        // Assert
+        
         Assert.NotNull(result);
         var userDtos = result.ToList();
         Assert.Equal(2, userDtos.Count);
@@ -49,17 +46,14 @@ public class GetAllUsersQueryHandlerTests
 
     [Fact]
     public async Task Handle_WhenNoUsersExist_ShouldReturnEmptyCollection()
-    {
-        // Arrange
+    {        
         _mockUserRepository.Setup(x => x.GetAllUsersAsync())
                           .ReturnsAsync(new List<User>());
 
         var query = new GetAllUsersQuery();
-
-        // Act
+        
         var result = await _handler.Handle(query, CancellationToken.None);
-
-        // Assert
+      
         Assert.NotNull(result);
         Assert.Empty(result);
     }
