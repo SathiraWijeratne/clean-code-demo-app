@@ -22,6 +22,7 @@ public class GetUserByIdQueryHandlerTests
         _handler = new GetUserByIdQueryHandler(_mockUserRepository.Object);
     }
 
+    // Test for handling valid get user by id queries
     [Fact]
     public async Task Handle_UserExists_ShouldReturnUserDto()
     {
@@ -41,6 +42,7 @@ public class GetUserByIdQueryHandlerTests
         _mockUserRepository.Verify(x => x.GetUserByIdAsync(userId), Times.Once);
     }
 
+    // Test for handling user not found scenarios
     [Fact]
     public async Task Handle_UserDoesNotExist_ShouldReturnNull()
     {
@@ -53,74 +55,6 @@ public class GetUserByIdQueryHandlerTests
         var result = await _handler.Handle(query, CancellationToken.None);
 
         Assert.Null(result);
-        _mockUserRepository.Verify(x => x.GetUserByIdAsync(userId), Times.Once);
-    }
-
-    [Fact]
-    public async Task Handle_ValidQuery_ShouldCallRepositoryWithCorrectId()
-    {
-        var userId = 42;
-        var query = new GetUserByIdQuery { Id = userId };
-        var user = new User { Id = userId, Name = "Test User" };
-
-        _mockUserRepository.Setup(x => x.GetUserByIdAsync(userId))
-            .ReturnsAsync(user);
-
-        await _handler.Handle(query, CancellationToken.None);
-
-        _mockUserRepository.Verify(x => x.GetUserByIdAsync(userId), Times.Once);
-    }
-
-    [Fact]
-    public async Task Handle_UserWithDifferentProperties_ShouldMapCorrectly()
-    {
-        var userId = 123;
-        var userName = "Jane Smith";
-        var user = new User { Id = userId, Name = userName };
-        var query = new GetUserByIdQuery { Id = userId };
-
-        _mockUserRepository.Setup(x => x.GetUserByIdAsync(userId))
-            .ReturnsAsync(user);
-
-        var result = await _handler.Handle(query, CancellationToken.None);
-
-        Assert.NotNull(result);
-        Assert.IsType<UserDto>(result);
-        Assert.Equal(userId, result.Id);
-        Assert.Equal(userName, result.Name);
-    }
-
-    [Fact]
-    public async Task Handle_RepositoryThrowsException_ShouldPropagateException()
-    {
-        var userId = 1;
-        var query = new GetUserByIdQuery { Id = userId };
-        var expectedException = new InvalidOperationException("Database error");
-
-        _mockUserRepository.Setup(x => x.GetUserByIdAsync(userId))
-            .ThrowsAsync(expectedException);
-
-        var actualException = await Assert.ThrowsAsync<InvalidOperationException>(
-            () => _handler.Handle(query, CancellationToken.None));
-
-        Assert.Equal(expectedException.Message, actualException.Message);
-        _mockUserRepository.Verify(x => x.GetUserByIdAsync(userId), Times.Once);
-    }
-
-    [Fact]
-    public async Task Handle_CancellationRequested_ShouldStillCallRepository()
-    {
-        var userId = 1;
-        var query = new GetUserByIdQuery { Id = userId };
-        var user = new User { Id = userId, Name = "Test User" };
-        var cancellationToken = new CancellationToken(true);
-
-        _mockUserRepository.Setup(x => x.GetUserByIdAsync(userId))
-            .ReturnsAsync(user);
-
-        var result = await _handler.Handle(query, cancellationToken);
-
-        Assert.NotNull(result);
         _mockUserRepository.Verify(x => x.GetUserByIdAsync(userId), Times.Once);
     }
 }

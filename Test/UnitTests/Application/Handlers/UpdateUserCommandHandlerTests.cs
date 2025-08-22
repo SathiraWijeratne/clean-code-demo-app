@@ -21,6 +21,7 @@ public class UpdateUserCommandHandlerTests
         _handler = new UpdateUserCommandHandler(_mockUserRepository.Object);
     }
 
+    // Test for handling valid update commands
     [Fact]
     public async Task Handle_ValidCommand_ShouldCallUpdateUserAsync()
     {
