@@ -4,7 +4,7 @@ using Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Presentation.Controllers;
+namespace Api.Controllers;
 
 /// <summary>
 /// Controller for managing user operations
